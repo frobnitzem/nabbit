@@ -60,12 +60,16 @@ void all_list_insert(ConcurrentLinkedList* L, int R) {
 
         // Retry insert until return code is not OP_FAILED.
         while (code == OP_FAILED) {
+	    // Cast the int to a larger type.
+	    // Yes, we really meant to convert an int into a void*
+	    void* val = (void*)(size_t)i;
             return_val = L->insert_if_absent(i,
-                                             (void*)i,
+					     val, 
                                              &code);
             statusCounts[code]++;
         }
-        assert(return_val == (void*)i);
+	void* final_val = (void*)(size_t)i;
+        assert(return_val == final_val);
     }
 
     //  L->print_list();
@@ -93,16 +97,19 @@ void test_list_insert(ConcurrentLinkedList* L, int R, int n) {
 
 
         int rand_num = rand() % R;
+	void* rand_val = (void*)(size_t)rand_num;
         LOpStatus code = OP_FAILED;
         void* return_val;
 
+
+
         while (code == OP_FAILED) {
             return_val = L->insert_if_absent(rand_num,
-                                             (void*)rand_num,
+					     rand_val, 
                                              &code);
             statusCounts[code]++;
         }
-        assert(return_val == (void*)rand_num);
+        assert(return_val == rand_val);
     }
   
     printf("Code results: ");

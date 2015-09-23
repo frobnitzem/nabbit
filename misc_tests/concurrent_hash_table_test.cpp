@@ -29,15 +29,16 @@ void all_hash_insert(ConcurrentHashTable* H, int R) {
     for (int i = 0; i < R; i++) {
         LOpStatus code = OP_FAILED;
         void* return_val;
-
+	void* val = (void*)(size_t)i;
+	
         // Retry insert until return code is not OP_FAILED.
         while (code == OP_FAILED) {
             return_val = H->insert_if_absent(i,
-                                             (void*)i,
+					     val, 
                                              &code);
             statusCounts[code]++;
         }
-        assert(return_val == (void*)i);
+        assert(return_val == val);
     }
 
     //  L->print_list();
@@ -68,16 +69,17 @@ void test_hash_insert(ConcurrentHashTable* H, int R, int n) {
 
 
         int rand_num = rand() % R;
+	void* rand_val = (void*)(size_t)rand_num;
         LOpStatus code = OP_FAILED;
         void* return_val;
 
         while (code == OP_FAILED) {
             return_val = H->insert_if_absent(rand_num,
-                                             (void*)rand_num,
+					     rand_val, 
                                              &code);
             statusCounts[code]++;
         }
-        assert(return_val == (void*)rand_num);
+        assert(return_val == rand_val);
     }
 
     if (print_output) {
