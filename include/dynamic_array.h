@@ -241,7 +241,8 @@ T DynamicArray<T>::get(int idx) {
     }
     return a[idx];
   } else {
-    return NULL;
+    // If idx isn't in bounds, return a random "empty" value.
+    return T();
   }
 }
 
@@ -267,7 +268,7 @@ T DynamicArray<T>::get_with_print(int idx) {
 	   a[idx]);
     return a[idx];
   } else {
-    return NULL;
+    return T();
   }
 }
 
