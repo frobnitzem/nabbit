@@ -11,7 +11,7 @@ H_FILES = sample_nabbit_node.h
 .PHONY: clean
 
 $(TARGET): $(SRC) $(H_FILES) $(O_FILES)
-	$(CXX) $(CFLAGS) $(SRC) $(NABBIT_INCLUDES) $(LIBARG) -o $@
+	$(CXX) $(CXXFLAGS) $(SRC) $(NABBIT_INCLUDES) $(LIBARG) -o $@
 
 clean:
 	rm -f $(TARGET) *.obj

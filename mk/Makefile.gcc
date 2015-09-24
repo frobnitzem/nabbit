@@ -9,5 +9,5 @@ CILKVIEW_FLAGS=
 LIBARG= -lpthread
 
 CFLAGS = -Wall -O3 -fcilkplus
-CXXFLAGS = $(CFLAGS)
+CXXFLAGS = $(CFLAGS) -std=c++0x
 CILK_SERIALIZE_FLAG = -cilk-serialize
